@@ -1,0 +1,43 @@
+{% extends "admin/change_form.html" %}
+{% block after_field_sets %}{{ block.super }}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<!--se diagnostica la presion sanguinea y el ritmo cardiaco-->
+
+<script>
+    $("id_presion_arterial").ready(function () {
+        $("input").change(function () {
+            var endpoint = '/app/bloodpressure/' + $('#id_presion_arterial').val();
+            $.ajax({
+                method: "GET",
+                url: endpoint,
+                success: function (data) {
+                    alert(data.status);
+                },
+                error: function (error_data) {
+                    console.error("error")
+                }
+            });
+        });
+    });
+
+    $("id_ritmo_cardiaco").ready(function () {
+        $("input").change(function () {
+            var endpoint = '/app/heartrate/' + $('#id_ritmo_cardiaco').val();
+            $.ajax({
+                method: "GET",
+                url: endpoint,
+                success: function (data) {
+                    alert(data.status);
+                },
+                error: function (error_data) {
+                    console.error("error")
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}
